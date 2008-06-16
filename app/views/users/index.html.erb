@@ -1,0 +1,37 @@
+<h1>Listing users</h1>
+
+<div>
+	<table >
+		<tr>
+			<% for column in User.content_columns %>
+			<td><%= column.human_name %> </td>
+			<% end %>
+		</tr>
+		<% for user in @users %>
+		<tr>
+			<% for column in User.content_columns %>
+			<td><%=h user.send(column.name) %></td>
+			<% end %>
+			<td>
+				<%= link_to 'Show', user %>
+				<%= link_to 'Edit', edit_user_path(user) %>
+				<%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+
+
+<br />
+
+<%= link_to 'New user', new_user_path %>
+
+<br />
+<%= link_to 'article', articles_path %>
+<br />
+<%= link_to 'user', users_path %>
+<br />
+<%= link_to 'blog', blogs_path %>
+<br />
+<br />

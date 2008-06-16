@@ -1,0 +1,20 @@
+<% content_for :js do %>
+<%= javascript_include_tag :defaults %>
+<% end %>
+
+<% base_language_only do -%>
+<div id="language"><h1>Please choose language for translation</h1></div>
+	<%= link_to "中文", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'zh', :id => params[:id]} %>
+	<%= link_to "Deutsch", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'de', :id => params[:id]} %>
+	<%= link_to "Français", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'fr', :id => params[:id]} %>
+	<%= link_to "Español", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'es', :id => params[:id]} %>
+<% end -%>
+
+<% not_base_language do -%>
+<div id="language"><h1><%= :Language.t + ":" + Locale.language.native_name %></h1></div>
+<div>
+<% @view_translations.each do |tr| -%>
+  <%= render :partial => 'translation_form', :locals => {:tr => tr}%>
+<% end -%>
+</div>
+<% end  -%>

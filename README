@@ -1,0 +1,120 @@
+welcome to mubs -- mulit-users mulit-blogs blog system
+
+git 使用提示
+
+安装git
+yum install git-core 
+apt-get install git-core 
+port install git-core +svn
+window下参考 http://code.google.com/p/msysgit/ 或者在Cygwin下编译安装
+参考
+	http://github.com/guides/newbies-guide-for-git-on-windows 	
+	http://github.com/guides/using-git-and-github-for-the-windows-for-newbies
+	http://kylecordes.com/2008/03/22/git-windows-works/
+	http://kylecordes.com/2008/04/30/git-windows-go/
+		
+clone mubs项目
+git clone git://github.com/johnson/mubs.git
+
+直接clone公共库能方便的测试最新功能
+若只想共享点patch,不想注册使用 github.com 也可 clone 到本地后建立自己的开发分支来开发
+参见最后的patch指南
+
+若要做较多开发,建议在 github.com 上 fork自己的项目库,然后再开发
+
+
+fork mubs项目
+在 http://github.com/johnson/mubs 页面上点fork按钮
+
+clone 你自己的mubs项目
+git clone git@github.com:你的ID/mubs.git
+
+让提交的代码有自己的ID
+git config --global user.name "你的ID或名字"
+git config --global user.email "你的email地址"
+
+加入公共项目地址,以便跟上更新
+git remote add coreteam git://github.com/johnson/mubs.git
+获取公共库更新
+git fetch coreteam
+建立公共库主干作为分支
+git checkout -b coreteam coreteam/master
+现在你可以追踪最新的更新并把它们合并到你自己的分支里
+你也可以继续添加其他的fork并建立本地分支,合并其他fork的更改到你的分支里
+例如 git remote add nobodys git@github.com:nobodys/mubs.git
+
+然后继续在你的本地主干进行开发,或者做分支
+分支
+git branch -a 查看所有分支
+git checkout -b newbranch 建立newbranch分支
+git checkout master 切换到master分支
+gitk --all gitk里查看所有分支
+
+git commit -a 提交所有修改
+
+合并分支
+将 coreteam/master 合并到本地的 newbranch 分支
+先 git checkout newbranch 切换到newbranch分支
+再 git merge coreteam/master
+
+git push origin master 将主分支修改推送到服务器
+git push origin newbranch 将newbranch分支修改推送到服务器
+
+完成后到你的项目页面点pull reuquest按钮,通知相应的core team或fork主人来获取你的更新
+
+
+参考
+git-tmbundle textmate 的 git bundle
+http://gitorious.org/projects/git-tmbundle
+http://github.com/timcharper/git-tmbundle/
+
+github-gem 简化fork操作的命令行工具
+http://github.com/defunkt/github-gem/tree/master
+
+github-tmbundle 
+http://github.com/drnic/github-tmbundle/tree/master
+
+
+如果不想注册使用 github.com 也能贡献 patch
+
+做出你的更改
+
+先 clone mubs的公共库
+$ git clone git://github.com/johnson/mubs.git
+$ cd mubs
+建立你自己的分支:
+$ git checkout -b patch_mubs
+会自动切换到你的分支 "patch_mubs"
+现在可以在编辑器里修改mubs了.修改bug时,确保提交示例bug的测试用例,mubs使用的是rspec.
+提交新功能时,确保仔细检查过.
+
+如果修改了API,确保更正相应的文档.完成了修改后就可以提交了.
+$ git commit -a -m "I made mubs cooler by adding magic beans"
+Created commit 29f8baa: I made rails scale by adding magic beans
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+Preparing your changes for submission.
+
+现在可以把你的修改做成patch了.需要更新下mubs修正可能存在的任何冲突.
+$ git checkout master
+切换到 "master" 分支
+$ git pull
+... 
+$ git checkout patch_mubs
+切换到你的分支 "patch_mubs"
+$ git rebase master
+
+一旦你修正了所有的冲突,就可以创建patch了
+$ git format-patch master --stdout > your-patch-file.diff
+现在你可以把那个补丁文件通过email发给coreteam的开发者，或者在mubs的项目管理系统上提交.
+
+检查修改
+要应用别人的修改,先得创建个分支:
+$ git checkout -b check_patch
+然后打上他们的补丁
+$ git am < their-patch-file.diff
+
+打完了补丁,要注意以下事项:
+对测试结果满意不,能理解他们测试了什么吗,缺了什么吗
+文档对你来说是正确的吗
+你喜欢他们的实现吗,你能想出更好或者更快的实现吗,哪怕是其中一部分
+如果你满意，就是个好的修改

@@ -1,0 +1,67 @@
+
+	
+	<p><b>标题</b><br /> <%= form.text_field :title %></p>
+	<p><b>作者</b><br /> <%= form.text_field :author %></p>
+	<!-- <p><b>关键词</b><br /> <%#= form.text_field :keywords %></p> -->
+	<fieldset>
+		<legend>摘要</legend>
+		<%= form.text_area :digest, :cols => 90, :rows => 5 %>
+	</fieldset>
+	
+	<fieldset id="article_body_field">
+		<legend>正文</legend>
+		<%= form.text_area :body, "cols" => 90, "rows" => 20 %>
+	</fieldset>
+	
+	<fieldset>
+		<legend>选项</legend>
+	<p>
+		<b>是否发布?</b>(默认发布.如果不想让文章在列表出现,请选否.如果选是,带密码文章一样会出现在文章列表)<br /> 
+		<label for="article_published_true">是</label>
+		<%= form.radio_button :published, 'true' %>
+		<label for="article_published_false">否</label>
+		<%= form.radio_button :published, 'false' %>
+	</p>
+	
+	<p>
+		<b>是否为草稿?</b>(默认否.草稿默认不接受回复.)<br />
+		<label for="article_is_draft_true">是</label>
+		<%= form.radio_button :is_draft, 'true' %>
+		<label for="article_is_draft_false">否</label>
+		<%= form.radio_button :is_draft, 'false' %>
+	</p>
+	
+	<p>
+		<b>是否解析显示表情符号?</b>(默认是.当内容含表情符号影响表达时,请选否.)<br />
+		<label for="article_allow_smile_true">是</label>
+		<%= form.radio_button :allow_smile, 'true' %>
+		<label for="article_allow_smile_false">否</label>
+		<%= form.radio_button :allow_smile, 'false' %>
+	</p>
+
+	<p>
+		<b>是否接受回复?</b>(默认是.正式发布了的文章不想被回复,请选否.草稿也想被回复,请选是.)<br />
+		<label for="article_allow_reply_true">是</label>
+		<%= form.radio_button :allow_reply, 'true' %>
+		<label for="article_allow_reply_false">否</label>
+		<%= form.radio_button :allow_reply, 'false' %>
+	</p>
+
+	<p>
+		<b>是否允许Blog Ping声告?</b>(默认否.Blog的Ping功能允许当你发布或更新文章后,自动向互联网上的blog搜索引擎等支持ping服务的站点发送您的内容.详见说明和帮助)<br />
+		<label for="article_allow_ping_true">是</label>
+		<%= form.radio_button :allow_ping, 'true' %>
+		<label for="article_allow_ping_false">否</label>
+		<%= form.radio_button :allow_ping, 'false' %>
+	</p>
+
+	<p>
+		<b>是否显示签名?</b>(默认是.)<br />
+		<label for="article_show_signature_true">是</label>
+		<%= form.radio_button :show_signature, 'true' %>
+		<label for="article_show_signature_false">否</label>
+		<%= form.radio_button :show_signature, 'false' %>
+	</p>
+	</fieldset>
+	
+	<!--[eoform:article]-->

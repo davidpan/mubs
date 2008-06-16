@@ -1,0 +1,19 @@
+<h1><%= :"WELCOME TO".t %> CCF MUBS</h1>
+<div class="span-15 prepend-1 colborder"><%= link_to :'Home'.t, '/' %></div>
+<div id='lang_selector' class="span-7 last">
+<%= :"Choose your language".t %>:
+<%= link_to "en", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'en', :id => params[:id]} %>
+<%= link_to "zh", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'zh', :id => params[:id]} %>
+<%= link_to "de", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'de', :id => params[:id]} %>
+<%= link_to "fr", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'fr', :id => params[:id]} %>
+<%= link_to "es", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'es', :id => params[:id]} %>
+<%= link_to :"translate".t, "/admin/translate" %>
+</div>
+<hr />
+
+<div id="notice" style="color: green">
+	<%= flash[:notice] %>
+</div>
+<div id="error" style="color: red">
+	<%= flash[:error] %>
+</div>

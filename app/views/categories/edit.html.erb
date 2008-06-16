@@ -1,0 +1,47 @@
+<h1>Editing category</h1>
+
+<%#= error_messages_for :category %>
+
+<% form_for(@category) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Parent</b><br />
+    <%= f.text_field :parent_id %>
+  </p>
+
+  <p>
+    <b>Tree</b><br />
+    <%= f.text_field :tree_id %>
+  </p>
+
+  <p>
+    <b>Image</b><br />
+    <%= f.text_field :image %>
+  </p>
+
+  <p>
+    <b>Color</b><br />
+    <%= f.text_field :color %>
+  </p>
+
+  <p>
+    <b>Lft</b><br />
+    <%= f.text_field :lft %>
+  </p>
+
+  <p>
+    <b>Rgt</b><br />
+    <%= f.text_field :rgt %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @category %> |
+<%= link_to 'Back', categories_path %>

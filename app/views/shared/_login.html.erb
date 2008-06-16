@@ -1,0 +1,24 @@
+<div id='login'>
+<%- unless logged_in? -%>
+	<%- form_tag session_path do -%>
+		<p style="color: green"><%= flash[:login_notice] %></p>
+		<p><label for="login"><%= :Login.t %></label><br/>
+		<%= text_field_tag 'login', @login %></p>
+
+		<p><label for="password"><%= :Password.t %></label><br/>
+		<%= password_field_tag 'password', nil %></p>
+
+		<p><label for="remember_me"><%= :"Remember me".t %>:</label>
+		<%= check_box_tag 'remember_me', '1', @remember_me %></p>
+
+		<p><%= submit_tag :'Log in'.t %></p>
+		
+		<h6><%= link_to :Signup.t, '/signup' %></h6>
+	<%- end -%>
+<%- else -%>
+	<h6><%= :logout.t %></h6>
+	<%= :"Hello".t + ":" + current_user.login 
+	%>
+	<%= link_to :logout.t, '/logout' %>
+<%- end -%>
+</div>

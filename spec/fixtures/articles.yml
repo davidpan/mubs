@@ -1,0 +1,121 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  title: "first article's title"
+  permalink: 
+  thread_id: 1
+  parent_id: 
+  permission: 
+  rank: 
+  adver: 
+  copyright: 
+  recommend: 
+  lft: 
+  rgt: 
+  attitude: 0
+  reply_count: 0
+  view_count: 1
+  author: 
+  ip_address: 
+  digest: 
+  body: "body of first article's title"
+  body_html: 
+  extended: 
+  extended_html: 
+  excerpt: 
+  text_filter:
+  article_password:
+  cached_category_id_list:
+  cached_category_name_list:
+  allow_reply: true
+  published: true
+  allow_smile: true
+  show_signature: true
+  allow_ping: false
+  is_reply: false
+  is_draft: false
+  infraction: false
+  created_at: 
+  updated_at:
+  published_at:
+  
+two:
+  id: 2
+  title: "second article's title"
+  permalink: 
+  thread_id: 1
+  parent_id: 
+  permission: 
+  rank: 
+  adver: 
+  copyright: 
+  recommend: 
+  lft: 
+  rgt: 
+  attitude: 0
+  reply_count: 0
+  view_count: 2
+  author: 
+  ip_address: 
+  digest: 
+  body: "body of second article's title"
+  body_html: 
+  extended: 
+  extended_html: 
+  excerpt: 
+  text_filter:
+  article_password:
+  cached_category_id_list:
+  cached_category_name_list:
+  allow_reply: true
+  published: true
+  allow_smile: true
+  show_signature: true
+  allow_ping: false
+  is_reply: false
+  is_draft: false
+  infraction: false
+  created_at: 
+  updated_at:
+  published_at:
+
+three:
+  id: 3
+  title: "third article's title"
+  permalink: 
+  thread_id: 1
+  parent_id: 
+  permission: 
+  rank: 
+  adver: 
+  copyright: 
+  recommend: 
+  lft: 
+  rgt: 
+  attitude: 0
+  reply_count: 0
+  view_count: 3
+  author: 
+  ip_address: 
+  digest: 
+  body: "body of third article's title"
+  body_html: 
+  extended: 
+  extended_html: 
+  excerpt: 
+  text_filter:
+  article_password:
+  cached_category_id_list:
+  cached_category_name_list:
+  allow_reply: true
+  published: true
+  allow_smile: true
+  show_signature: true
+  allow_ping: true
+  is_reply: false
+  is_draft: false
+  infraction: false
+  created_at: 
+  updated_at:
+  published_at:

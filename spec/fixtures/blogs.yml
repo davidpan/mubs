@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: First blog
+  status: 1
+  rank: 100
+  permission: 755
+  adver: 1
+  description: first blog
+  subtitle: the first blog
+
+two:
+  id: 2
+  name: Second blog
+  status: 0
+  rank: 50
+  permission: 777
+  adver: 0
+  description: second blog
+  subtitle: the second blog
+
+three:
+  id: 3
+  name: Third blog
+  status: 1
+  rank: 0
+  permission: 555
+  adver: 1
+  description: third blog
+  subtitle: the third blog

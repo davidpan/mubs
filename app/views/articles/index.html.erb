@@ -1,0 +1,25 @@
+<% title @blog.name + :"articles".t %>
+<h1><%= @blog.name + :"'s ".t + :"articles".t %></h1>
+
+
+<div class="span-15 prepend-1 colborder">
+	<% for article in @articles %>
+	<div>	
+		<h2><%= link_to article.title, [@blog, article] %></h2> 
+		<p class="control"><%= article.created_at  %> | <%= link_to 'Edit', edit_blog_article_path(@blog, article) %> | <%= link_to 'Destroy', [@blog, article], :confirm => 'Are you sure?', :method => :delete %></p>
+		<p class="prepend-1"><%= h article.body %></p>
+		<hr />
+	</div>
+	<% end %>
+</div>
+
+<div class="span-7 last">
+
+<%= link_to 'New article', new_blog_article_path(@blog) %>
+
+<br />
+<%= link_to 'blogs', blogs_path %>
+
+</div>
+
+<hr />

@@ -1,0 +1,37 @@
+<fieldset>
+	<legend>文章</legend>
+	<p><%= link_to @article.title, [@blog, @article] %></p>
+	<p> <%= @article.created_at  %> | <%= link_to 'Edit', edit_blog_article_path(@blog, @article) %> | <%= link_to 'Destroy', [@blog, @article], :confirm => 'Are you sure?', :method => :delete %></p>
+	<p><%= h @article.body %></p>
+</fieldset>
+<% if @comments.size > 0 %>
+<fieldset>
+	<legend>回复</legend>
+	<% @comments.each_with_index do |comment, index| %>
+	<p><%= index %></p>
+	<p><%= comment.title %></p>
+	<p><%= comment.body %></p>
+	<% end %>
+</fieldset>
+<% end %>
+
+<fieldset>
+	<legend>添加回复</legend>
+	<% if session[:user] == 'users' %>
+	<% @article_comment = Article.new %>
+	<% form_for([@blog, @article_comment]) do |f| %>
+	<p><%= f.hidden_field('author', 'value' => 'user_name') %></p>
+  <p><label for="title"><%= :Title.t %></label><br/>
+  <%= f.text_field('title') %></p>
+  <p><label for="body"><%= :Body.t %></label><br/>
+  <%= f.text_area('body') %></p>
+	<p><%= f.submit 'ok' %><%= f.hidden_field('parent_id', 'value' => @article.id ) %></p>
+	<% end %>
+	<% elsif session[:user] == 'commenter' %>
+	<% if session[:traveler] == ture %>
+	<% else %>
+	<% end %>
+	<% end %>
+</fieldset>
+<%= link_to 'Edit', edit_blog_article_path(@blog, @article) %> |
+<%= link_to 'Back', blog_articles_path(@blog) %>

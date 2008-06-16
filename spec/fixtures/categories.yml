@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: 系统
+  description: 系统内建
+  parent_id: 
+  tree_id: 
+  image: 
+  color: 
+  lft: 
+  rgt: 1
+
+two:
+  id: 2
+  name: 放心情
+  parent_id: 水区
+  tree_id: 
+  image: 
+  color: 
+  lft: 
+  rgt: 1

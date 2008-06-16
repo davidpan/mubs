@@ -1,0 +1,12 @@
+<h1>Editing commenter</h1>
+
+<%#= error_messages_for :commenter %>
+
+<% form_for(@commenter) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @commenter %> |
+<%= link_to 'Back', commenters_path %>
