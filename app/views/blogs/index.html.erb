@@ -2,12 +2,12 @@
 
 <div class="span-15 prepend-1 colborder">
 	<h6><%= :'blog list'.t %></h6>
-	<% for blog in @blogs %>	
+	<% @blogs.each do |blog| %>	
 		<div class="span-9"><%= link_to blog.name, blog_articles_path(blog) %></div>
-		<div class="span-2"><%= link_to 'Show', blog %></div>
-		<div class="span-2"><%= link_to 'Edit', edit_blog_path(blog) %></div>
+		<div class="span-2"><%= link_to :Show.t, blog %></div>
+		<div class="span-2"><%= link_to :Edit.t, edit_blog_path(blog) %></div>
 		<div class="span-2 last">
-			<%= link_to 'Destroy', blog, :confirm => 'Are you sure?', :method => :delete %>
+			<%= link_to :Destroy.t, blog, :confirm => :'Are you sure?'.t, :method => :delete %>
 		</div>
 	<% end %>
 </div>
@@ -15,9 +15,17 @@
 <div class="span-7 last">
 	<%#= render :partial => 'shared/login' %>
 	<%= render :file => 'sessions/new', :use_full_path => true %>
+	
+	<p>	
+	<%= "New Users" %>:
+	<% User.recent.each do |user| %>
+		<br /><%= link_to user.login, user %>
+	<% end %>
+	</p>
+	<%= link_to :"More Users...".t , users_path %>
+	
 </div>
 
-<hr>
 <hr class="space">
 
 

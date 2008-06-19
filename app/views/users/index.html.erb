@@ -1,37 +1,51 @@
+<% title "Listing users" %>
 <h1>Listing users</h1>
 
-<div>
-	<table >
-		<tr>
-			<% for column in User.content_columns %>
-			<td><%= column.human_name %> </td>
+
+<div class="span-15 prepend-1 colborder">
+	<% @users.each do |user| %>
+	<div>	
+		<h2>
+			<%= link_to user.login, user %>
+		</h2> 
+		
+		<div id="users_blogs">
+			<%= current_user.login %>'s Blogs:
+			<% user.blogs.each do |blog| %>
+			<p><%= link_to blog.name, [current_user, blog] %></p> <%# blog_path(blog) %>
 			<% end %>
-		</tr>
-		<% for user in @users %>
-		<tr>
-			<% for column in User.content_columns %>
-			<td><%=h user.send(column.name) %></td>
+		</div>
+
+		<div id="users_openids">
+			<%= current_user.login %>'s OpenIDs:
+			<% user.open_ids.each do |id| %>
+			<p><%= link_to id.url, [current_user, id] %></p> <%# open_id_path(id) %>
 			<% end %>
-			<td>
-				<%= link_to 'Show', user %>
-				<%= link_to 'Edit', edit_user_path(user) %>
-				<%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %>
-			</td>
-		</tr>
-		<% end %>
-	</table>
+		</div>
+	
+		<p class="control">
+			<%= link_to :Show.t, user %>
+			<%= link_to :Edit.t, edit_user_path(user) %>
+			<%= link_to :Destroy.t, user, :confirm => :'Are you sure?'.t, :method => :delete %>
+		</p>
+		<p class="prepend-1"><%= h user.name %></p>
+		<hr />
+	</div>
+	<% end %>
 </div>
 
-
-<br />
-
+<div class="span-7 last">
 <%= link_to 'New user', new_user_path %>
-
 <br />
 <%= link_to 'article', articles_path %>
+<br />
+<%= link_to 'New article', new_blog_article_path(@blog) if @blog %>
+<%= link_to "New article", new_article_path %>
 <br />
 <%= link_to 'user', users_path %>
 <br />
 <%= link_to 'blog', blogs_path %>
 <br />
-<br />
+</div>
+
+<hr />

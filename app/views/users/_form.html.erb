@@ -1,12 +1,39 @@
-<p><label for="login">Login</label><br/>
+
+<p><label for="login"><%= :Login.t %></label><br/>
 <%= form.text_field :login %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :login) %></div>
 
-<p><label for="email">Email</label><br/>
+
+<p><label for="name"><%= :Name.t %></label><br/>
+<%= form.text_field :name %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :name) %></div>
+
+
+<p><label for="email"><%= :Email.t %></label><br/>
 <%= form.text_field :email %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :email) %></div>
 
-<p><label for="password">Password</label><br/>
+<p><label for="password"><%= :Password.t %></label><br/>
 <%= form.password_field :password %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :password) %></div>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
+<p><label for="password_confirmation"><%= :'Confirm Password'.t %></label><br/>
 <%= form.password_field :password_confirmation %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :password_confirmation) %></div>
 
+<% if @open_ids %>
+	<p><label for="user_open_id"><%= :"Your OpenID".t + "(#{:optional.t})" %></label><br/>
+	<% @open_ids.each do |open_id| %>
+		<% form_for open_id do |id| %>
+			<%= id.text_field :url %></p>
+			<div class="fieldWithErrors"><%= error_message_on(:open_id, :url) %></div>
+			<%= id.submit :Update.t %>
+		<% end %>
+	<% end %>
+<% else %>	
+	<% form_for :open_id do |id| %>
+	<%= id.text_field :url %></p>
+	<div class="fieldWithErrors"><%= error_message_on(:open_id, :url) %></div>
+	<%= id.submit :Update.t %>
+	<% end %>
+<% end %>

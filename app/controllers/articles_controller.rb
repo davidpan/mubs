@@ -5,8 +5,11 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.xml
   def index
-    @articles = @blog.articles.find_new(15)
-
+    if @blog
+      @articles = @blog.articles.find_new(15)
+    else
+      @articles=Article.find_new(15)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @articles }
@@ -17,7 +20,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1.xml
   def show
     @article = Article.find(params[:id])
-    @blog = @article.blog if @blog.nil?
+    #@blog = @article.blog if @blog.nil?
     @comments = Comment.find(:all, :conditions => ['article_id = ?', @article.id] ).concat( Article.find(:all, :conditions => ['parent_id = ?', @article.id]))
     @comments.sort! do |x, y|
       x.created_at <=> y.created_at
@@ -48,7 +51,7 @@ class ArticlesController < ApplicationController
   # POST /articles.xml
   def create
     @article = Article.new(params[:article])
-    @article.blog_ids << @blog.id
+    @article.blog << @blog
     respond_to do |format|
       if @article.save
         flash[:notice] = 'Article was successfully created.'
@@ -69,7 +72,11 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.update_attributes(params[:article])
         flash[:notice] = 'Article was successfully updated.'
-        format.html { redirect_to([@blog, @article]) }
+        if @blog
+          format.html { redirect_to([@blog, @article]) } 
+        else
+          format.html { redirect_to(@article) } 
+        end
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

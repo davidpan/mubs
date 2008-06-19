@@ -1,6 +1,4 @@
 <%- unless logged_in? -%>
-  <h1><%= :"Log In".t %></h1>
-  
   <% form_tag session_path do -%>
   <p><label for="login"><%= :Login.t %></label><br/>
   <%= text_field_tag 'login', @login %></p>
@@ -19,7 +17,6 @@
   <p><%= submit_tag :'Log in'.t %></p>
   <% end -%>
 <%- else -%>
-	<h1><%= :logout.t %></h1>
 	<%= :"Hello".t + ":" + current_user.login %>
 	<%= link_to :logout.t, '/logout' %>
 <%- end -%>

@@ -1,7 +1,20 @@
 <fieldset>
 	<legend>文章</legend>
+	<% if @blog %>
 	<p><%= link_to @article.title, [@blog, @article] %></p>
-	<p> <%= @article.created_at  %> | <%= link_to 'Edit', edit_blog_article_path(@blog, @article) %> | <%= link_to 'Destroy', [@blog, @article], :confirm => 'Are you sure?', :method => :delete %></p>
+	<p> 
+	<%= @article.created_at  %> | 
+	<%= link_to :Edit.t, edit_blog_article_path(@blog, @article) %> | 
+	<%= link_to :Destroy.t, [@blog, @article], :confirm => :'Are you sure?'.t, :method => :delete %></p>
+	<% else %>
+	<p><%= link_to @article.title,  @article %></p>
+	<p> 
+	<%= @article.created_at  %> | 
+	<%= link_to :Edit.t, edit_article_path(@article) %> | 
+	<%= link_to :Destroy.t, @article, :confirm => :'Are you sure?'.t, :method => :delete %>
+	</p>
+	<% end %>
+	
 	<p><%= h @article.body %></p>
 </fieldset>
 <% if @comments.size > 0 %>
@@ -15,6 +28,7 @@
 </fieldset>
 <% end %>
 
+<% if @blog %>
 <fieldset>
 	<legend>添加回复</legend>
 	<% if session[:user] == 'users' %>
@@ -33,5 +47,6 @@
 	<% end %>
 	<% end %>
 </fieldset>
-<%= link_to 'Edit', edit_blog_article_path(@blog, @article) %> |
-<%= link_to 'Back', blog_articles_path(@blog) %>
+<%= link_to :Edit.t, edit_blog_article_path(@blog, @article) %> |
+<%= link_to :Back.t, blog_articles_path(@blog) %>
+<% end %>

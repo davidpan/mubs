@@ -1,3 +1,17 @@
+<div id="users_blogs">
+	<%= current_user.login %>'s Blogs:
+	<% @user.blogs.each do |blog| %>
+		<p><%= link_to blog.name, [current_user, blog] %></p> <%# blog_path(blog) %>
+	<% end %>
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+<div id="users_openids">
+	<%= current_user.login %>'s OpenIDs:
+	<% @user.open_ids.each do |id| %>
+		<p><%= link_to id.url, [current_user, id] %></p> <%# open_id_path(id) %>
+	<% end %>
+</div>
+
+<%= link_to :Edit.t, edit_user_path(@user) %> |
+<%= link_to :Back.t, users_path %>

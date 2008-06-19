@@ -5,9 +5,9 @@
 <% form_for(@blog) do |f| %>
   <%= render :partial => 'form' , :object => f%>
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit :Update.t %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @blog %> |
-<%= link_to 'Back', blogs_path %>
+<%= link_to :Show.t, @blog %> |
+<%= link_to :Back.t, blogs_path %>

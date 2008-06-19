@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080608131440) do
+ActiveRecord::Schema.define(:version => 20080618174751) do
 
   create_table "articles", :force => true do |t|
     t.integer  "thread_id",                 :limit => 11
@@ -72,14 +72,6 @@ ActiveRecord::Schema.define(:version => 20080608131440) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "blogs_users", :id => false, :force => true do |t|
-    t.integer "blog_id",     :limit => 11
-    t.integer "category_id", :limit => 11
-  end
-
-  add_index "blogs_users", ["blog_id", "category_id"], :name => "index_blogs_users_on_blog_id_and_category_id"
-  add_index "blogs_users", ["category_id"], :name => "index_blogs_users_on_category_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -182,6 +174,19 @@ ActiveRecord::Schema.define(:version => 20080608131440) do
   add_index "globalize_translations", ["tr_key", "language_id"], :name => "index_globalize_translations_on_tr_key_and_language_id"
   add_index "globalize_translations", ["table_name", "item_id", "language_id"], :name => "globalize_translations_table_name_and_item_and_language"
 
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id",    :limit => 11
+    t.integer  "blog_id",    :limit => 11
+    t.string   "role"
+    t.string   "permission"
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["blog_id", "user_id"], :name => "index_memberships_on_blog_id_and_user_id"
+  add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued",     :limit => 11
     t.integer "lifetime",   :limit => 11
@@ -195,6 +200,13 @@ ActiveRecord::Schema.define(:version => 20080608131440) do
     t.integer "timestamp",  :limit => 11,                 :null => false
     t.string  "server_url"
     t.string  "salt",                     :default => "", :null => false
+  end
+
+  create_table "open_ids", :force => true do |t|
+    t.integer  "user_id",    :limit => 11
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sites", :force => true do |t|
@@ -212,7 +224,6 @@ ActiveRecord::Schema.define(:version => 20080608131440) do
     t.string   "name",                      :limit => 40
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
-    t.string   "identity_url",              :limit => 255
     t.integer  "group_id",                  :limit => 11
     t.integer  "local",                     :limit => 11
     t.integer  "avatar_id",                 :limit => 11
@@ -225,6 +236,7 @@ ActiveRecord::Schema.define(:version => 20080608131440) do
     t.datetime "deleted_at"
     t.string   "activation_code",           :limit => 40
     t.string   "state",                                   :default => "passive"
+    t.string   "identity_url"
   end
 
 end

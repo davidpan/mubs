@@ -6,9 +6,9 @@
 
 <% for commenter in @commenters %>
   <tr>
-    <td><%= link_to 'Show', commenter %></td>
-    <td><%= link_to 'Edit', edit_commenter_path(commenter) %></td>
-    <td><%= link_to 'Destroy', commenter, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to :Show.t, commenter %></td>
+    <td><%= link_to :Edit.t, edit_commenter_path(commenter) %></td>
+    <td><%= link_to :Destroy.t, commenter, :confirm => :'Are you sure?'.t, :method => :delete %></td>
   </tr>
 <% end %>
 </table>

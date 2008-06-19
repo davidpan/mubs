@@ -4,9 +4,9 @@
 
 <% form_for(@account) do |f| %>
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit :Update.t %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @account %> |
-<%= link_to 'Back', accounts_path %>
+<%= link_to :Show.t, @account %> |
+<%= link_to :Back.t, accounts_path %>

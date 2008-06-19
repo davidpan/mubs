@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :memberships
+  
+  map.resources :open_ids
 
   map.root :controller => "blogs", :action => "home"
 
@@ -19,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :comments
   map.resources :articles
-  map.resources :blogs, :collection => { :home => :get }, :has_many => :articles
+  map.resources :blogs, :collection => { :home => :get }, :has_many => [:articles, :users]
   
   map.open_id_complete 'session', :controller => "sessions", :action => "create", :requirements => { :method => :get }
   
@@ -32,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   
   map.resources :users, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete },
-                :has_many => :articles
+                :has_many => [:blogs, :articles, :open_ids]
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

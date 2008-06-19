@@ -4,12 +4,16 @@
 
 <%#= error_messages_for :article %>
 
-<% form_for([@blog, @article]) do |f| %>
-  <%= render :partial => 'form' , :object => f%>
-
-  <p>
-    <%= f.submit "Create" %>
-  </p>
+<% if @blog %>
+	<% form_for([@blog, @article]) do |f| %>
+  	<%= render :partial => 'form' , :object => f%>
+  	<p><%= f.submit :Create.t %></p>
+	<% end %>
+<% else %>
+	<% form_for(@article) do |f| %>
+	  <%= render :partial => 'form' , :object => f%>
+		<p><%= f.submit :Create.t %></p>
+	<% end %>
 <% end %>
 
-<%= link_to 'Back', blog_articles_path(@blog) %>
+<%= link_to :Back.t, blog_articles_path(@blog) if @blog %>

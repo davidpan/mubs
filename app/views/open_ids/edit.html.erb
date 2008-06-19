@@ -1,0 +1,13 @@
+<h1>Editing OpenID</h1>
+
+<%= error_messages_for :open_id %>
+
+<% form_for(@open_id) do |f| %>
+  <%= render :partial => 'form' , :object => f%>
+  <p>
+    <%= f.submit :Update.t %>
+  </p>
+<% end %>
+
+<%= link_to :Show.t, @open_id %> |
+<%= link_to :Back.t, open_ids_path %>

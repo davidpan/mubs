@@ -1,12 +1,17 @@
 <% title "mubs home" %>
 <h2><%= :"Homepage of Mubs".t %></h2>
 
-<br />
-
+<div class="span-15 prepend-1 colborder">
 <%= :"Mubs is a multi users and multi blogs web application.".t %>
 
 <br />
 
 <%= :"You can find all blogs' list".t %> <%= link_to :here.t, blogs_path %>.
+</div>
+
+<div class="span-7 last">
+<%= link_to :signup.t, '/signup' unless logged_in? %>
+<%= render :file => 'sessions/new', :use_full_path => true %>
+</div>
 
 <hr />

@@ -1,3 +1,16 @@
+<div class="span-15 prepend-1 colborder">
+<% @blog.articles.each do |article| %>
+  <p><%= link_to article.title, [@blog, article] %></p> <%# article_path(article) %>
+<% end %>
+</div>
 
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>
+<div class="span-7 last">
+	<%= "Blog's users" %>:
+	<% @blog.users.each do |user| %>
+		<p><%= link_to user.login, [@blog, user] %></p>
+	<% end %>
+	<%= link_to :Edit.t, edit_blog_path(@blog) %> |
+	<%= link_to :Back.t, blogs_path %>
+</div>
+
+<hr />

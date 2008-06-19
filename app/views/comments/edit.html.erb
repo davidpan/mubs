@@ -4,9 +4,9 @@
 
 <% form_for(@comment) do |f| %>
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit :Update.t %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @comment %> |
-<%= link_to 'Back', comments_path %>
+<%= link_to :Show.t, @comment %> |
+<%= link_to :Back.t, comments_path %>

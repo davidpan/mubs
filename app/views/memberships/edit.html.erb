@@ -1,0 +1,12 @@
+<h1>Editing membership</h1>
+
+<% form_for(@membership) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit :Update.t %>
+  </p>
+<% end %>
+
+<%= link_to :Show.t, @membership %> |
+<%= link_to :Back.t, memberships_path %>

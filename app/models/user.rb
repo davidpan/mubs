@@ -22,14 +22,16 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of   :identity_url,    :case_sensitive => false
 
-  
+  has_many :open_ids #, :class_name => "open_id", :foreign_key => "reference_id"
+  has_many :memberships
+  has_many :blogs, :through => :memberships
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url
+  attr_accessible :login, :email, :name, :password, :password_confirmation#, :identity_url
 
-
+  named_scope :recent, :limit => 15, :order => "created_at DESC"
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -55,7 +57,7 @@ class User < ActiveRecord::Base
           # 将unicode字符编码URI为符合IDN标准的ascii punycode URI
           idn = Idna.toASCII(self.identity_url.gsub(/[a-zA-Z]+:\/\//,''))
           # 将OpenID标准化
-          self.identity_url=OpenIdAuthentication.normalize_url(idn)
+          self.identity_url= OpenIdAuthentication.normalize_url(idn)
         end
       rescue
         errors.add :identity_url, '(OpenID) invalid! It should be a normal URI.'

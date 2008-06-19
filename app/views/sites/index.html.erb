@@ -10,9 +10,9 @@
   <tr>
     <td><%=h site.name %></td>
     <td><%=h site.states %></td>
-    <td><%= link_to 'Show', site %></td>
-    <td><%= link_to 'Edit', edit_site_path(site) %></td>
-    <td><%= link_to 'Destroy', site, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to :Show.t, site %></td>
+    <td><%= link_to :Edit.t, edit_site_path(site) %></td>
+    <td><%= link_to :Destroy.t, site, :confirm => :'Are you sure?'.t, :method => :delete %></td>
   </tr>
 <% end %>
 </table>

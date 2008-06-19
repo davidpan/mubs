@@ -1,0 +1,18 @@
+<h1>Listing memberships</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for membership in @memberships %>
+  <tr>
+    <td><%= link_to :Show.t, membership %></td>
+    <td><%= link_to :Edit.t, edit_membership_path(membership) %></td>
+    <td><%= link_to :Destroy.t, membership, :confirm => :'Are you sure?'.t, :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New membership', new_membership_path %>

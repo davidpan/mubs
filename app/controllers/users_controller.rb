@@ -4,6 +4,13 @@ class UsersController < ApplicationController
   before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
   
+  def index
+    @users=User.find(:all)
+  end
+  
+  def show
+    @user=User.find(params[:id])
+  end
 
   # render new.rhtml
   def new
@@ -13,6 +20,8 @@ class UsersController < ApplicationController
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
+    @open_id = OpenId.new(params[:open_id])
+    @user.open_ids << @open_id if @open_id.save!
     @user.register! if @user && @user.valid?
     success = @user && @user.valid?
     if success && @user.errors.empty?
@@ -25,9 +34,26 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
+    @user=User.find(params[:id])
+    @open_ids = @user.open_ids
   end
 
+  def update
+    @user = User.find(params[:id])
+    @open_id = OpenId.new(params[:open_id])
+    @user.open_ids << @open_id if @open_id.save!
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = 'User was successfully updated.'
+        format.html { redirect_to(@user) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
   def activate
     logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?

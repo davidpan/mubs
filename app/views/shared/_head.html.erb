@@ -1,14 +1,24 @@
-<h1><%= :"WELCOME TO".t %> CCF MUBS</h1>
-<div class="span-15 prepend-1 colborder"><%= link_to :'Home'.t, '/' %></div>
-<div id='lang_selector' class="span-7 last">
+<h1><%= link_to :"WELCOME TO".t + " CCF MUBS", '/'%></h1>
+<div class="span-8 prepend-1 colborder">
+<%= link_to :'Home'.t, '/' %> |
+<%= link_to :'Blogs List'.t, '/blogs' %> |
+<%= link_to :'Articles List'.t, '/articles' %> |
+<%= link_to :'Users List'.t, '/users' %>	
+</div>
+<div id='lang_selector' class="span-7">
 <%= :"Choose your language".t %>:
-<%= link_to "en", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'en', :id => params[:id]} %>
-<%= link_to "zh", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'zh', :id => params[:id]} %>
-<%= link_to "de", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'de', :id => params[:id]} %>
-<%= link_to "fr", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'fr', :id => params[:id]} %>
-<%= link_to "es", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'es', :id => params[:id]} %>
+<%= link_to "en", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'en', :id => params[:id]} %> |
+<%= link_to "zh", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'zh', :id => params[:id]} %> |
+<%= link_to "de", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'de', :id => params[:id]} %> |
+<%= link_to "fr", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'fr', :id => params[:id]} %> |
+<%= link_to "es", {:controller => controller.controller_name, :action => controller.action_name, :locale => 'es', :id => params[:id]} %> |
 <%= link_to :"translate".t, "/admin/translate" %>
 </div>
+
+<div id="user_bar" class="span-7 last">
+	<%= render :partial  => 'users/user_bar' %>
+</div>
+
 <hr />
 
 <div id="notice" style="color: green">
@@ -17,3 +27,4 @@
 <div id="error" style="color: red">
 	<%= flash[:error] %>
 </div>
+
