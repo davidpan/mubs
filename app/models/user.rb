@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of   :identity_url,    :case_sensitive => false
 
-  has_many :open_ids #, :class_name => "open_id", :foreign_key => "reference_id"
+  has_many :open_ids , :attributes => true
   has_many :memberships
   has_many :blogs, :through => :memberships
 

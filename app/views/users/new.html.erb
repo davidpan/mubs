@@ -1,4 +1,5 @@
 <h1><%= :'Sign up as a new user'.t %></h1>
+
 <% @user.password = @user.password_confirmation = nil %>
 
 <%= error_messages_for :user %>
@@ -7,3 +8,6 @@
   <%= render :partial => 'form', :object => f %>
 	<p><%= submit_tag 'Sign up' %></p>
 <% end -%>
+
+
+<hr />
