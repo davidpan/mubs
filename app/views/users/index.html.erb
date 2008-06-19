@@ -3,34 +3,41 @@
 
 
 <div class="span-15 prepend-1 colborder">
-	<% @users.each do |user| %>
-	<div>	
-		<h2>
-			<%= link_to user.login, user %>
-		</h2> 
+	<% @users.each do |user| %>	
+		<div class="span-8">
+			<h3><%= link_to user.login, user %></h3>
+			
+			<% unless user.blogs.empty? %>
+			<div id="users_blogs">
+				<%= user.login %>'s Blogs:
+				<% user.blogs.each do |blog| %>
+				<p><%= link_to blog.name, [user, blog] %></p> <%# blog_path(blog) %>
+				<% end %>
+			</div>
+			<% end %>		
+		</div>
 		
-		<div id="users_blogs">
-			<%= current_user.login %>'s Blogs:
-			<% user.blogs.each do |blog| %>
-			<p><%= link_to blog.name, [current_user, blog] %></p> <%# blog_path(blog) %>
+		<div class="span-7 last">
+			<% unless user.name.empty? %>
+			<h3><%= :name.t %>: <%= user.name %></h3>
 			<% end %>
-		</div>
-
-		<div id="users_openids">
-			<%= current_user.login %>'s OpenIDs:
-			<% user.open_ids.each do |id| %>
-			<p><%= link_to id.url, [current_user, id] %></p> <%# open_id_path(id) %>
-			<% end %>
-		</div>
-	
-		<p class="control">
-			<%= link_to :Show.t, user %>
-			<%= link_to :Edit.t, edit_user_path(user) %>
-			<%= link_to :Destroy.t, user, :confirm => :'Are you sure?'.t, :method => :delete %>
-		</p>
-		<p class="prepend-1"><%= h user.name %></p>
+			
+			<% unless user.open_ids.empty? %>
+			<div id="users_openids">
+				<%= user.login %>'s OpenIDs:
+				<% user.open_ids.each do |id| %>
+				<p><%= link_to id.url, [user, id] %></p> <%# open_id_path(id) %>
+				<% end %>
+			</div>
+			<% end %>	
+			
+			<p class="control">
+				<%= link_to :Show.t, user %>
+				<%= link_to :Edit.t, edit_user_path(user) %>
+				<%= link_to :Destroy.t, user, :confirm => :'Are you sure?'.t, :method => :delete %>
+			</p>	
+		</div>		
 		<hr />
-	</div>
 	<% end %>
 </div>
 
