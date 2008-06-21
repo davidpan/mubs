@@ -20,17 +20,14 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email,    :case_sensitive => false
   validates_format_of       :email,    :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD
   
-  validates_uniqueness_of   :identity_url,    :case_sensitive => false
-  
-  # use attribute_fu plugin
-  has_many :open_ids , :attributes => true, :discard_if => :blank?
+  has_many :open_ids , :attributes => true, :discard_if => proc { |open_id| open_id.url.blank? } # use attribute_fu plugin
   has_many :memberships
   has_many :blogs, :through => :memberships
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :open_id_attributes# :open_id_attributes 为 attribute_ful 插件添加的实例方法
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :time_zone, :open_id_attributes# :open_id_attributes 为 attribute_ful 插件添加的实例方法
 
   named_scope :recent, :limit => 15, :order => "created_at DESC"
 
@@ -45,6 +42,10 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
+  def self.find_by_openid(openid)
+    OpenId.find_by_url(openid).user
+  end
+
   protected
     
     def make_activation_code
@@ -52,17 +53,4 @@ class User < ActiveRecord::Base
         self.activation_code = self.class.make_token
     end
     
-    def validate
-      begin
-        if self.identity_url
-          # 将unicode字符编码URI为符合IDN标准的ascii punycode URI
-          idn = Idna.toASCII(self.identity_url.gsub(/[a-zA-Z]+:\/\//,''))
-          # 将OpenID标准化
-          self.identity_url= OpenIdAuthentication.normalize_url(idn)
-        end
-      rescue
-        errors.add :identity_url, '(OpenID) invalid! It should be a normal URI.'
-      end
-    end
-
 end

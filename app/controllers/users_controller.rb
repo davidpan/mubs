@@ -16,12 +16,38 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
- 
+
+=begin
+Use attribute_fu plugin to create sub-model
+@user.open_id_attributes = params[:open_id_attributes]
+
+  Parameters: {
+    "user"=>{
+      "name"=>"jayesoui", 
+      "password_confirmation"=>"",
+      "open_id_attributes"=>{
+        "new"=>{
+          "0"=>{"url"=>"http://测试.myopenid.com/ "},
+          "1"=>{"url"=>"http://test.myopenid.com/"}, 
+          "2"=>{"url"=>""}
+        }
+      }, 
+      "login"=>"jayesoui", 
+      "password"=>"", 
+      "email"=>"test@test.com"
+    },
+    "commit"=>"Update", 
+    "authenticity_token"=>"cf33167a49d72312a9789c3e8ecd5c2493b6ce0f", 
+    "_method"=>"put", 
+    "action"=>"update", 
+    "id"=>"3", 
+    "controller"=>"users"
+  }
+=end
   def create
     logout_keeping_session!
     @user = User.new(params[:user])
-    @open_id = OpenId.new(params[:open_id])
-    @user.open_ids << @open_id if @open_id.save!
+    @user.open_id_attributes = params[:open_id_attributes] # use attribute_fu plugin to create sub-model
     @user.register! if @user && @user.valid?
     success = @user && @user.valid?
     if success && @user.errors.empty?
@@ -40,6 +66,9 @@ class UsersController < ApplicationController
   
   
 =begin
+Use attribute_fu plugin to update sub-model
+@user.open_id_attributes = params[:open_id_attributes]
+
   Parameters: {
     "user"=>{
       "name"=>"jayesoui", 
@@ -47,13 +76,13 @@ class UsersController < ApplicationController
       "open_id_attributes"=>{
         "new"=>{
           "0"=>{"url"=>"http://测试.myopenid.com/ "},
-          "1"=>{"url"=>"http://stainless.myopenid.com/"}, 
+          "1"=>{"url"=>"http://test.com/"}, 
           "2"=>{"url"=>""}
         }
       }, 
       "login"=>"jayesoui", 
       "password"=>"", 
-      "email"=>"johnsonqu@live.com"
+      "email"=>"test@test.com"
     },
     "commit"=>"Update", 
     "authenticity_token"=>"cf33167a49d72312a9789c3e8ecd5c2493b6ce0f", 
@@ -65,9 +94,7 @@ class UsersController < ApplicationController
 =end
   def update
     @user = User.find(params[:id])
-    # @open_id = OpenId.new(params[:open_id])
-    # @user.open_ids << @open_id if @open_id.save!
-    @user.open_id_attributes = params[:open_id_attributes]
+    @user.open_id_attributes = params[:open_id_attributes] # use attribute_fu plugin to update sub-model
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'

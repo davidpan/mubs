@@ -224,9 +224,11 @@ ActiveRecord::Schema.define(:version => 20080618174751) do
     t.string   "name",                      :limit => 40
     t.string   "crypted_password",          :limit => 40
     t.string   "salt",                      :limit => 40
+    t.string   "time_zone",                 :limit => 40, :default => "UTC"
     t.integer  "group_id",                  :limit => 11
     t.integer  "local",                     :limit => 11
     t.integer  "avatar_id",                 :limit => 11
+    t.integer  "blog_id",                   :limit => 11
     t.integer  "blog_id",                   :limit => 11
     t.datetime "remember_token_expires_at"
     t.datetime "last_login_at"
@@ -236,7 +238,6 @@ ActiveRecord::Schema.define(:version => 20080618174751) do
     t.datetime "deleted_at"
     t.string   "activation_code",           :limit => 40
     t.string   "state",                                   :default => "passive"
-    t.string   "identity_url"
   end
 
 end

@@ -1,11 +1,9 @@
 class OpenId < ActiveRecord::Base
+  validates_presence_of     :url
   validates_uniqueness_of   :url,    :case_sensitive => false
 
   belongs_to :user #, :class_name => "User", :foreign_key => "user_id"
 
-  def blank?
-    self.url.blank?
-  end
 
   protected
 
