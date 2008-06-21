@@ -10,7 +10,14 @@ class SessionsController < ApplicationController
   def create
     logout_keeping_session!
     if using_open_id?
-      open_id_authentication#(params[:openid_url])
+      if params[:openid_url] # 当有openid的输入时，格式化unicode的openid为ascii的标准url
+        # 将unicode字符编码URI为符合IDN标准的ascii punycode URI
+        idn = Idna.toASCII(params[:openid_url].gsub(/[a-zA-Z]+:\/\//,'')) 
+        ret = OpenIdAuthentication.normalize_url(idn) # 将OpenID标准化
+        open_id_authentication(ret)
+      else # openid提供者返回的标准ascii url不需要再格式化
+        open_id_authentication(params[:openid_url])
+      end
     else
       password_authentication(params[:login], params[:password])
     end
@@ -49,8 +56,8 @@ protected
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
   
-  def open_id_authentication
-    authenticate_with_open_id do |result, identity_url|
+  def open_id_authentication(identity_url)
+    authenticate_with_open_id(identity_url) do |result, identity_url|
       if result.successful?
         if self.current_user = User.find_by_openid(identity_url)
           successful_login

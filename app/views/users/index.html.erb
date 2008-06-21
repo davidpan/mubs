@@ -26,7 +26,7 @@
 			<div id="users_openids">
 				<%= user.login %>'s OpenIDs:
 				<% user.open_ids.each do |id| %>
-				<p><%= link_to id.url, [user, id] %></p> <%# open_id_path(id) %>
+				<p><%= link_to idn_url(id.url), [user, id] %></p> <%# open_id_path(id) %>
 				<% end %>
 			</div>
 			<% end %>	
