@@ -21,15 +21,16 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD
   
   validates_uniqueness_of   :identity_url,    :case_sensitive => false
-
-  has_many :open_ids , :attributes => true
+  
+  # use attribute_fu plugin
+  has_many :open_ids , :attributes => true, :discard_if => :blank?
   has_many :memberships
   has_many :blogs, :through => :memberships
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation#, :identity_url
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :open_id_attributes# :open_id_attributes 为 attribute_ful 插件添加的实例方法
 
   named_scope :recent, :limit => 15, :order => "created_at DESC"
 

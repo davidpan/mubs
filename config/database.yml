@@ -63,7 +63,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: mubs_production
+  database: mubs_dev
   username: root
   password: 
   socket: /tmp/mysql.sock

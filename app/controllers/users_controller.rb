@@ -37,11 +37,37 @@ class UsersController < ApplicationController
     @user=User.find(params[:id])
     @open_ids = @user.open_ids
   end
-
+  
+  
+=begin
+  Parameters: {
+    "user"=>{
+      "name"=>"jayesoui", 
+      "password_confirmation"=>"",
+      "open_id_attributes"=>{
+        "new"=>{
+          "0"=>{"url"=>"http://测试.myopenid.com/ "},
+          "1"=>{"url"=>"http://stainless.myopenid.com/"}, 
+          "2"=>{"url"=>""}
+        }
+      }, 
+      "login"=>"jayesoui", 
+      "password"=>"", 
+      "email"=>"johnsonqu@live.com"
+    },
+    "commit"=>"Update", 
+    "authenticity_token"=>"cf33167a49d72312a9789c3e8ecd5c2493b6ce0f", 
+    "_method"=>"put", 
+    "action"=>"update", 
+    "id"=>"3", 
+    "controller"=>"users"
+  }
+=end
   def update
     @user = User.find(params[:id])
-    @open_id = OpenId.new(params[:open_id])
-    @user.open_ids << @open_id if @open_id.save!
+    # @open_id = OpenId.new(params[:open_id])
+    # @user.open_ids << @open_id if @open_id.save!
+    @user.open_id_attributes = params[:open_id_attributes]
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'

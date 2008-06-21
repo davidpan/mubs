@@ -1,4 +1,4 @@
-<div id="user_form" class="span-7">
+<div id="user_form" class="span-9">
 <p><label for="login"><%= :Login.t %></label><br/>
 <%= form.text_field :login %></p>
 <div class="fieldWithErrors"><%= error_message_on(:user, :login) %></div>
@@ -23,6 +23,9 @@
 
 </div>
 
-<div id="open_id" class="span-7 last">
+<div id="open_ids" class="span-9">
   <%= form.render_associated_form(@user.open_ids, :new => 3) %>
+  <%#= form.render_associated_form(@user.open_ids) %>
 </div>
+
+	<%= form.add_associated_link(:'Add OpenIDs'.t, @user.open_ids.build) %>

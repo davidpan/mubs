@@ -3,13 +3,13 @@
 <%= error_messages_for :user %>
 
 <% form_for(@user) do |f| %>
-  <%= render :partial => 'form' , :object => f %>
-  <p>
-    <%= f.submit :Update.t %>
-  </p>
-<% end %>
+	<%= render :partial => 'form' , :object => f %>
 
-<%= link_to :Show.t, @user %> |
-<%= link_to :Back.t, users_path %>
+	<div class="span-4 last" >
+		<%= f.submit :Update.t %> <br />
+		<%= link_to :Show.t, @user %> |
+		<%= link_to :Back.t, users_path %>
+	</div>
+<% end %>
 
 <hr />

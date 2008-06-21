@@ -1,4 +1,6 @@
 <p class="open_id">
-  <label for="open_id_url"><%= :"Your OpenID".t + "(#{:optional.t})" %></label><br/>
+  <label><%= :"Your OpenID".t + "(#{:optional.t})" %></label><br/>
   <%= f.text_field :url %>
+	<%#= f.remove_link "remove" %>
+	<a href="#" onclick='$(this).up(".open_id").remove(); return false;'>remove</a>
 </p>

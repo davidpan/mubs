@@ -2,7 +2,7 @@ module Authentication
   unless defined? CONSTANTS_DEFINED
     # Uncomment to suit
     # RE_LOGIN_OK     = /\A\w[\w\.\-_@]+\z/                     # ASCII, strict
-    RE_LOGIN_OK   = /\A[[:alnum:]][[:alnum:]\.\-_@]+\z/     # Unicode, strict
+    RE_LOGIN_OK   = /(\A[[:alnum:]][[:alnum:]\.\-_@]+\z)/     # Unicode, strict
     # RE_LOGIN_OK   = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
     # MSG_LOGIN_BAD   = "use only letters, numbers, and .-_@ please."
     MSG_LOGIN_BAD   = "avoid non-printing characters and \\&gt;&lt;&amp;/ please."

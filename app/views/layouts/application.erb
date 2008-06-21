@@ -8,6 +8,7 @@
 	<%= stylesheet_link_tag 'mubs', :bps,:media => "screen", :cache => true %>
 	<%= stylesheet_link_tag :bpp, :media => "print", :cache => true %>
 	<!--[if IE]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<%= javascript_include_tag :all, :cache => true %>
 	<%= yield :js %>	
 </head>
 
