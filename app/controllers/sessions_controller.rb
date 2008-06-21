@@ -52,7 +52,7 @@ protected
   def open_id_authentication
     authenticate_with_open_id do |result, identity_url|
       if result.successful?
-        if self.current_user = User.find_by_identity_url(identity_url)
+        if self.current_user = User.find_by_openid(identity_url)
           successful_login
         else
           failed_login "Sorry, no user by that identity URL exists (#{identity_url})"

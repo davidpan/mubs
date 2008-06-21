@@ -31,4 +31,13 @@ class ApplicationController < ActionController::Base
     session[:locale] = params[:locale] if accept_locales.include?(params[:locale])
     Locale.set(session[:locale] || (request.env["HTTP_ACCEPT_LANGUAGE"] || "").scan(/[^,;]+/).find{|l| accept_locales.include?(l)})
   end
+  
+  def set_timezone
+    if logged_in?
+      Time.zone = current_user.time_zone
+    else
+      Time.zone = 'UTC'
+    end
+  end
+  
 end

@@ -21,6 +21,9 @@
 <%= form.password_field :password_confirmation %></p>
 <div class="fieldWithErrors"><%= error_message_on(:user, :password_confirmation) %></div>
 
+<p><label　for="user_time_zone"><%= :'Your Time Zone'.t %></label></p>
+<%= time_zone_select( :user, :time_zone, nil, :default => "UTC" ) %>
+
 </div>
 
 <div id="open_id" class="span-7 last">
