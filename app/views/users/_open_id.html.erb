@@ -1,7 +1,7 @@
 <p class="open_id">
   <label><%= :"Your OpenID".t + "(#{:optional.t})" %></label><br/>
   <%= f.text_field :url %>
+	<a href="#" onclick='$(this).up(".open_id").remove(); return false;'>remove</a>
 	<div class="fieldWithErrors"><%= f.error_message_on(:url) %></div>
 	<%#= f.remove_link "remove" %>
-	<a href="#" onclick='$(this).up(".open_id").remove(); return false;'>remove</a>
 </p>

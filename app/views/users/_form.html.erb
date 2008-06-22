@@ -26,9 +26,8 @@
 
 </div>
 
+<%= form.add_associated_link(:'Add OpenIDs'.t, @user.open_ids.build) %>
 <div id="open_ids" class="span-9">
   <%= form.render_associated_form(@user.open_ids, :new => 3) %>
   <%#= form.render_associated_form(@user.open_ids) %>
 </div>
-
-	<%= form.add_associated_link(:'Add OpenIDs'.t, @user.open_ids.build) %>

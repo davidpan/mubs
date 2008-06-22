@@ -3,7 +3,7 @@
 <div class="span-15 prepend-1 colborder">
 	<h6><%= :'open_id list'.t %></h6>
 	<% for open_id in @open_ids %>	
-		<div class="span-9"><%= link_to open_id.url, open_id_path(open_id) %></div>
+		<div class="span-9"><%= link_to idn_url(open_id.url), open_id_path(open_id) %></div>
 		<div class="span-2"><%= link_to :Show.t, open_id %></div>
 		<div class="span-2"><%= link_to :Edit.t, edit_open_id_path(open_id) %></div>
 		<div class="span-2 last">
