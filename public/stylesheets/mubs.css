@@ -2,6 +2,15 @@
 	text-align:right;
 }
 
+input[name="openid_url"] {
+  background: url('/images/openid.png') no-repeat;
+	padding-left:15px;
+}
+p.open_id input {
+  background: url('/images/openid.png') no-repeat;
+	padding-left:15px;
+}
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;

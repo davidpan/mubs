@@ -56,58 +56,58 @@ protected
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
   
-  def open_id_authentication(identity_url)
-    authenticate_with_open_id(identity_url) do |result, identity_url|
-      if result.successful?
-        if self.current_user = User.find_by_openid(identity_url)
-          successful_login
-        else
-          failed_login "Sorry, no user by that identity URL exists (#{identity_url})"
-        end
-      else
-        failed_login result.message
-      end
-    end
-  end
-  
+  # 纯认证，不带注册支持
   # def open_id_authentication(identity_url)
-  #   # Pass optional :required and :optional keys to specify what sreg fields you want.
-  #   # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
-  #   authenticate_with_open_id(identity_url, :required => [ :nickname, :email ],:optional => :fullname) do |result, identity_url, registration|
-  #     case result.status
-  #     when :missing
-  #       failed_login "Sorry, the OpenID server couldn't be found"
-  #     when :invalid
-  #       failed_login "Sorry, but this does not appear to be a valid OpenID"
-  #     when :canceled
-  #       failed_login "OpenID verification was canceled"
-  #     when :failed
-  #       failed_login "Sorry, the OpenID verification failed"
-  #     when :successful
-  #       if self.current_user = User.find_by_identity_url(identity_url)
+  #   authenticate_with_open_id(identity_url) do |result, identity_url|
+  #     if result.successful?
+  #       if @openid = OpenId.find_by_url(identity_url)
+  #        self.current_user = @openid.user
   #         successful_login
-  #       elsif
-  #         self.current_user = User.new
-  #         assign_registration_attributes!(registration)
-  #         if self.current_user.save
-  #           successful_login
-  #         else
-  #           failed_login "Your OpenID profile registration failed: " +
-  #           @current_user.errors.full_messages.to_sentence
-  #         end
   #       else
-  #         failed_login "Sorry, no user by that identity URL exists"
+  #         failed_login "Sorry, no user by that identity URL exists (#{identity_url})"
   #       end
+  #     else
+  #       failed_login result.message
   #     end
   #   end
   # end
+  
+  # 带OpenID简单注册支持的认证，如果是新OpenID，提供注册表格
+  def open_id_authentication(identity_url)
+    # Pass optional :required and :optional keys to specify what sreg fields you want.
+    # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
+    authenticate_with_open_id(identity_url, :required => [ :nickname, :email ],:optional => :fullname) do |result, identity_url, registration|
+      case result.status
+      when :missing
+        failed_login "Sorry, the OpenID server couldn't be found"
+      when :invalid
+        failed_login "Sorry, but this does not appear to be a valid OpenID"
+      when :canceled
+        failed_login "OpenID verification was canceled"
+      when :failed
+        failed_login "Sorry, the OpenID verification failed"
+      when :successful
+        if @openid = OpenId.find_by_url(identity_url) # 如果存在，让其登录
+          self.current_user = @openid.user
+          successful_login
+        elsif # 如不存在，提供注册表格
+          @user = User.new
+          assign_registration_attributes!(registration)
+          @user.open_ids.build(:url => identity_url)
+          render :file => 'sessions/new_user', :use_full_path => true, :layout => true
+        else
+          failed_login "Sorry, no user by that identity URL exists"
+        end
+      end
+    end
+  end
 
   # registration is a hash containing the valid sreg keys given above
   # use this to map them to fields of your user model
   def assign_registration_attributes!(registration)
     model_to_registration_mapping.each do |model_attribute, registration_attribute|
       unless registration[registration_attribute].blank?
-        self.current_user.send("#{model_attribute}=", registration[registration_attribute])
+        @user.send("#{model_attribute}=", registration[registration_attribute])
       end
     end
   end

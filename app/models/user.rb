@@ -42,10 +42,6 @@ class User < ActiveRecord::Base
     u && u.authenticated?(password) ? u : nil
   end
 
-  def self.find_by_openid(openid)
-    OpenId.find_by_url(openid).user
-  end
-
   protected
     
     def make_activation_code

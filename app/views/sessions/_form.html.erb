@@ -1,0 +1,33 @@
+<div id="user_form" class="span-9">
+<p><label for="login"><%= :Login.t %></label><br/>
+<%= form.text_field :login %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :login) %></div>
+
+
+<p><label for="name"><%= :Name.t %></label><br/>
+<%= form.text_field :name %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :name) %></div>
+
+
+<p><label for="email"><%= :Email.t %></label><br/>
+<%= form.text_field :email %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :email) %></div>
+
+<p><label for="password"><%= :Password.t %></label><br/>
+<%= form.password_field :password %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :password) %></div>
+
+<p><label for="password_confirmation"><%= :'Confirm Password'.t %></label><br/>
+<%= form.password_field :password_confirmation %></p>
+<div class="fieldWithErrors"><%= error_message_on(:user, :password_confirmation) %></div>
+
+<p><label　for="user_time_zone"><%= :'Your Time Zone'.t %></label></p>
+<%= time_zone_select( :user, :time_zone, nil, :default => "UTC" ) %>
+
+</div>
+
+<%= form.add_associated_link(:'Add OpenIDs'.t, @user.open_ids.build) %>
+<div id="open_ids" class="span-9">
+  <%= form.render_associated_form(@user.open_ids, :new => 3) %>
+  <%#= form.render_associated_form(@user.open_ids) %>
+</div>
